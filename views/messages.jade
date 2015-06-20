@@ -5,5 +5,5 @@ block content
   ul
     each val in myMessages
       li= val.name + ' ' 
-        a(class="btn",href="/messages/delete/#{val.id}") Delete
-        a(class="btn default",href="/messages/send/#{val.id}") Send
+        a(class="btn btn-default",href="/messages/delete/#{val.id}") Delete
+        a(class="btn btn-default",href="/messages/send/#{val.id}") Send
