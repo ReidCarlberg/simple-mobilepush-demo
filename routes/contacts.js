@@ -23,13 +23,13 @@ router.get('/', function(req, res, next) {
 	            "attribute": {
 	                "key": "MobilePush Demographics.Device"
 	            },
-	                "operator": "equal",
-	                "value": {
-	                    "items": ["iPod touch 5G"]
-	            	}
-	       	 	}]
-	   		 }
-		};
+	            "operator": "Equals",
+	            "value": {
+	                "items": ["iPod touch 5G"]
+	           	}
+	       	 }]
+	   	}
+	};
 
 	var messageoptions = {
 	    uri: '/contacts/v1/contacts/search',
