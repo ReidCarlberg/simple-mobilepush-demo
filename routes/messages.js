@@ -25,7 +25,7 @@ router.get('/', function(req, res, next) {
 		.get(messageoptions)
 		.then(function(response) {
 		    var messages = response.body;
-		    console.log(messages.length);
+		    //console.log(messages);
 		    res.render('messages', { title: 'Message List', myMessages: messages });
 		})
 	    .catch(function(err) {
@@ -68,7 +68,63 @@ router.get('/send/:id', function(req, res, next) {
 		.then(function(response) {
 		    var token = response.body.tokenId;
 	    	console.log(token);
-	    	res.render('result', { title: 'Send Result', result: token });
+	    	res.render('result', { title: 'Send Result', result: token, id: req.params.id });
+	    })
+	    .catch(function(err) {
+	    	throw exception(err);
+	    })
+	});
+
+router.get('/customize/:id', function(req, res, next) {
+	res.render('message-customize', { title: 'Customize & Send', messageId: req.params.id });
+})
+
+router.post('/contact', function(req, res, next) {
+
+	console.log('in send id ' + req.body.id);
+	console.log('in send sub ' + req.body.subscriberKey);
+	console.log('in send msg ' + req.body.message);
+
+	var messageoptions = {
+	    uri: '/push/v1/messageContact/' + req.body.id + '/send',
+	    headers: {},
+	    json: {
+	    	"SubscriberKeys": [
+	    		req.body.subscriberKey
+	    	],
+	    	"Override":true,
+	    	"MessageText":req.body.message,
+	    	"SendTime": "2012-10-31 09:00"
+	    }
+	};
+
+	RestClient
+		.post(messageoptions)
+		.then(function(response) {
+		    var token = response.body.tokenId;
+	    	console.log(token);
+	    	res.render('result', { title: 'Send Result', result: token, id: req.body.id });
+	    })
+	    .catch(function(err) {
+	    	throw exception(err);
+	    })
+	});
+
+router.get('/status/:id/:token', function(req, res, next) {
+
+	console.log('in status ' + req.params.id + ' token ' + req.params.token);
+
+	var messageoptions = {
+	    uri: '/push/v1/messageList/' + req.params.id + '/deliveries/' + req.params.token,
+	    headers: {}
+	};
+
+	RestClient
+		.get(messageoptions)
+		.then(function(response) {
+		    var status = response.body;
+	    	console.log(status);
+	    	res.render('result', { title: 'Send Result', result: req.params.token, id: req.params.id, status: status });
 	    })
 	    .catch(function(err) {
 	    	throw exception(err);

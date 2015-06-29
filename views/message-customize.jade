@@ -1,0 +1,14 @@
+result.jade
+extends layout
+
+block content
+  h1= title
+  form(name="customize", method="post", action="/messages/contact")
+    p Message Id: 
+      input(type="text", name="id", value="#{messageId}")
+    p Subscriber Key: 
+      input(type="text", name="subscriberKey", value="reid.carlberg@salesforce.com")
+    p Message:
+      textarea(name="message", rows="4") basic text
+    p Send
+      input(type="Submit", value="Send Now")

@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  h1= title
+  ul
+    each val, index in myMessages
+      li#item-= index + ': ' + val 
+        if val instanceof Object
+           ul
+             each val3, index3 in val
+               li#item-= index3 + ': ' + val3           
+
+        

@@ -3,4 +3,15 @@ extends layout
 
 block content
   h1= title
+  p id: #{id}
   p Result: #{result}
+  p
+    a(class="btn btn-default",href="/messages/status/#{id}/#{result}") Check Status
+  if status instanceof Object
+    ul
+      each val3, index3 in status
+        li#item-= index3 + ': ' + val3
+          if val3 instanceof Object
+            ul
+              each val4, index4 in val3
+                li#item-= index4 + ': ' + val4    
