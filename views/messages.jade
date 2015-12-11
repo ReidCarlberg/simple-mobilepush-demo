@@ -8,4 +8,5 @@ block content
         a(class="btn btn-default",href="/messages/delete/#{val.id}") Delete
         a(class="btn btn-default",href="/messages/send/#{val.id}") Send
           if val.sendInitiator == 1
+            a(class="btn btn-default",href="/messages/sendOneMinute/#{val.id}") Send In A Minute
             a(class="btn btn-default",href="/messages/customize/#{val.id}") Customize & Send

@@ -75,6 +75,32 @@ router.get('/send/:id', function(req, res, next) {
 	    })
 	});
 
+router.get('/sendOneMinute/:id', function(req, res, next) {
+
+	console.log('in send ' + req.params.id);
+
+	var messageoptions = {
+	    uri: '/push/v1/messageApp/' + req.params.id + '/send',
+	    headers: {},
+	    json: {
+		    "Override": true,
+		    "MessageText": "New information available!",
+		    "SendTime": "2015-12-10 15:10"
+	    }
+	};
+
+	RestClient
+		.post(messageoptions)
+		.then(function(response) {
+		    var token = response.body.tokenId;
+	    	console.log(token);
+	    	res.render('result', { title: 'Send One Minute Result', result: token, id: req.params.id });
+	    })
+	    .catch(function(err) {
+	    	throw exception(err);
+	    })
+	});
+
 router.get('/customize/:id', function(req, res, next) {
 	res.render('message-customize', { title: 'Customize & Send', messageId: req.params.id });
 })
