@@ -85,7 +85,12 @@ router.get('/sendOneMinute/:id', function(req, res, next) {
 	    json: {
 		    "Override": true,
 		    "MessageText": "New information available!",
-		    "SendTime": "2015-12-10 15:10"
+		    "SendTime": "2015-12-10 15:20",
+				"BlackoutWindow": {
+				    "UtcOffset": "-0500",
+				    "WindowStart": "1400",
+				    "WindowEnd": "2200"
+				},		    
 	    }
 	};
 
